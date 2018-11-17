@@ -94,41 +94,60 @@ class Form extends React.Component {
     return (
       <form>
       
-      <h4>Find the Perfect Local</h4>
-      <p>Fill out this form and we will use our genius technology to match you with local tour guides that are best for you</p>
+      <h3 className="font-weight-bold text-dark">START YOUR ADVENTURE</h3>
+      <p className="text-secondary">Tell us about your perfect adventure and we will find you the perfect local.</p>
       
         <div className="form-group">
           <label htmlFor="name">Name</label>
-          <input type="text" className="form-control" id="exampleFormControlInput1" placeholder="Chuck Norris" />
+          <input type="text" className="form-control" id="exampleFormControlInput1" placeholder="John Doe" />
+        </div>
+        <div className="form-group row">
+          <label htmlFor="example-number-input" className="col-2 col-form-label">Group Size</label>
+          <br/>
+          <div className="col-12">
+            <input className="form-control" type="number" id="example-number-input" placeHolder="0"/>
+          </div>
         </div>
         
-            
-        <div className="form-group">
+        
+        {/*<div className="form-group">
           <label for="exampleFormControlInput1">Email Address</label>
           <input type="email" className="form-control" id="exampleFormControlInput1" placeholder="name@example.com" />
-        </div>
+        </div>*/}
 
         <div className="form-group">
-          <label htmlFor="location" >What part of the Island do you want to explore?</label>
+          <label htmlFor="location" >What general area will your activities be located?</label>
             <select name="location" className="form-control" id="location" onChange={e => this.change(e)}>
+            <option value="-">-</option>
             <option value="northShore">North Shore</option>
-            <option value="westSide">West Side</option>
+            <option value="Waianae">Waianae</option>
             <option value="honolulu">Honolulu</option>
             <option value="kapolei">Kapolei</option>
             <option value="kaneohe">Kaneohe</option>
             </select>
         </div>
         
-
+        <div className="form-group">
+          <label htmlFor="language" >Language</label>
+            <select name="language" className="form-control" id="language" onChange={e => this.change(e)} placeholder="-">
+            <option value="">-</option>
+            <option value="eng">English </option>
+            <option value="kor">Korean</option>
+            <option value="jap">Japanese</option>
+            <option value="chi">Mandarin Chinese</option>
+            <option value="tag">Tagalog</option>
+            </select>
+          </div>
+          
         <br/>
         <button type="button" class="btn btn-default btn-lg" onClick={e => this.incrementActivity(e)}>
           <i class="fas fa-plus-circle"></i> Add Activity
         </button>
         {this.makeActivities()}
         {this.state.numActivities > 0 ? <button type="button" class="btn btn-default btn-lg" onClick={e => this.incrementActivity(e)}>
-          <i class="fas fa-plus-circle"></i> Add Activity
+          <i class="fas fa-plus-circle"></i> Add Additional Activity
         </button> : null }
-        <button onClick={e => this.onSubmit(e)} className="btn btn-red">Submit</button>
+        {this.state.numActivities > 0 ? <button onClick={e => this.onSubmit(e)} className="btn btn-red">Submit</button> : null }
         
       </form>
     );

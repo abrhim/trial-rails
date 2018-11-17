@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from "prop-types"
 import GuideCard from './GuideCard'
+import Profile from './Profile'
 
 import pic1 from '../../assets/images/pic1.jpg';
 import pic2 from '../../assets/images/pic2.jpg';
@@ -9,7 +10,7 @@ import pic4 from '../../assets/images/pic4.png';
 import pic5 from '../../assets/images/pic5.jpeg';
 import pic6 from '../../assets/images/pic6.png';
 import pic7 from '../../assets/images/pic7.jpg';
-import pic8 from '../../assets/images/pic8.jpg';
+import pic8 from '../../assets/images/pic8.png';
 import pic9 from '../../assets/images/pic9.jpg';
 import pic10 from '../../assets/images/pic10.jpg';
 import pic11 from '../../assets/images/pic11.jpg';
@@ -29,8 +30,11 @@ class Results extends React.Component{
         guidesDB: [],
         query: {},
         guides: [],
-        pictures: [pic1,pic2,pic3,pic4,pic5,pic6,pic7,pic8,pic9,pic10,pic11,pic12,pic13,pic14,pic15,pic16,pic17,pic18,pic19,pic20],
+        showProfile: false,
+        profile: {}
+        
     }
+    pictures= [pic1,pic2,pic3,pic4,pic5,pic6,pic7,pic8,pic9,pic10,pic11,pic12,pic13,pic14,pic15,pic16,pic17,pic18,pic19,pic20]
     
     tmpState = {
         query:{},
@@ -41,9 +45,18 @@ class Results extends React.Component{
        // console.log(this.state.guidesDB)
     }
     
-    buildCard = (img,guide,id,rating) => {
+    buildCard = (guide) => {
         //console.log(id)
-        return <GuideCard img={img} guide={guide} id={id+1} key={id} rating={rating}/>;
+        return <GuideCard guide={guide} showProfile={(e,guide) => {this.showProfile(e,guide)}}/>;
+    }
+    
+    showProfile = (e,guide) => {
+        console.log(guide)
+        e.preventDefault()
+        this.setState({
+            showProfile: true,
+            profile: guide
+        })
     }
     
     buildCards = (guides) => {
@@ -51,7 +64,7 @@ class Results extends React.Component{
       let cards = [];
       for (let i = 0; i < guides.length; i++) {
         //console.log(i);
-        cards.push(this.buildCard(guides[i].img,guides[i],i,guides[i].rating));
+        cards.push(this.buildCard(guides[i]));
       }
      // console.log(cards.length)
       return cards;
@@ -60,12 +73,9 @@ class Results extends React.Component{
         window.scrollTo(0, 0)
     }
     
-    
-    render(){
-        this.tmpState.query = this.props.query;
-        return(
-            <div>
-                <h3>Locals for you</h3>
+    listOfLocals= () => {
+        return(            <div>
+                <h3 className="text-dark font-weight-bold">LOCALS FOR YOU</h3>
                 <p>This is the list of locals we have algorithmically calculated for you! <a href="#" className="btn btn-red" style={{float:"right"}} >Send itinerary to all </a></p>
                 <br/>
                 <div className="cards">
@@ -74,6 +84,15 @@ class Results extends React.Component{
                 <div>{/*JSON.stringify(this.tmpState.query, null, 2)*/}</div>
                 <br />
                 <div>{/*JSON.stringify(this.findGuides(this.tmpState.query), null, 2)*/}</div>
+            </div>
+            )
+    }
+    
+    render(){
+        this.tmpState.query = this.props.query;
+        return(
+            <div>
+            {this.state.showProfile ? <Profile guide={this.state.profile}/> : this.listOfLocals() }
             </div>
         )
     }
@@ -86,7 +105,6 @@ class Results extends React.Component{
         
         for(i=0;i<length;i++){
             let cat = query.activities[i].category
-            console.log(cat)
             categories.push(...cat)
         }
         return categories
@@ -95,12 +113,13 @@ class Results extends React.Component{
         let array = [];
         
         let q = this.getCategories(query);
-        console.log(q)
+        //console.log(q)
         //return guides that have similar categories.
         
         //for each guide, check to see how many categories 
         //the guide has in common with the itinerary
         var i;
+        console.log(query.language)
         for(i=0;i<20;i++){
             let gCategories = this.state.guidesDB[i].categories;
             var j;
@@ -109,8 +128,8 @@ class Results extends React.Component{
                     array.push(this.state.guidesDB[i])
                 }
             })
-            
         }
+        this.shuffleArray(array);
         return array;
     }
 
@@ -122,9 +141,11 @@ class Results extends React.Component{
                 rating: 0,
             };
             guide.name = this.db.names[i];
-            guide.img = this.state.pictures[i]
-            guide.rating = this.db.reviews[i%5];
+            guide.img = this.pictures[i]
+            guide.rating = this.db.reviews[i%4]
+            guide.language = this.db.languages[i%4];
             guide.numOfRatings = this.randNum(48,148);
+            guide.location = this.db.location[i%5];
             //console.log(guide.rating);
 
             guide.categories.push(this.db.categories[this.randNum(0,this.db.categories.length)]);
@@ -139,12 +160,26 @@ class Results extends React.Component{
      randNum = (min, max) => {
         return Math.floor(Math.random() * (max - min) ) + min;
     }
-
+    
+    
+    shuffleArray = (array) => {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+    }
 
 //make guides
     db = {
+        
+        location:["North Shore","Kapolei","Honolulu","Kaneohe","Waianae"],
+        languages: [
+            'Korean',
+            'Chinese',
+            'Tagalog',
+            'Japanese'],
 
-        reviews: [4.1,4.9,4.5,4.7],
+        reviews: [4.8,4.9,4.5,4.7],
         categories: [
             'Hiking',
             'Surfing',
@@ -181,6 +216,9 @@ class Results extends React.Component{
             "Lizzie"
         ]
     }
+    
+    
+    
 }
 
 export default Results;

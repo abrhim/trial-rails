@@ -75,9 +75,7 @@ class Activity extends React.Component {
     render(){
         return(
             <div class="card w-75" style={{padding: '18px', width: '100%'}}>
-               <br/>
-                <br/>
-                <h5>Activity stuff </h5>
+                <h4>Activity</h4>
                 <hr size="3"/>
                 <div className="checkboxes">        
                     {this.createCheckboxes()}
@@ -85,10 +83,10 @@ class Activity extends React.Component {
                 
                 <br/>
                 <div className="form-group">
-                    <label for="length">About how many hours do you want to spend doing these activities with a local guide?</label>
+                    <label for="length">Duration of activity:</label>
                     <input 
                         name="length"
-                        placeholder="'till the cow comes home" 
+                        placeholder="4 hours" 
                         value={this.state.length} 
                         onChange={e => this.change(e)}
                         className="form-control"
@@ -97,7 +95,7 @@ class Activity extends React.Component {
         
                 <br/>
                 <div className="form-group">
-                    <label htmlFor="exampleFormControlTextarea1">Describe your ideal itinerary. (For example, what kind of food or hikes you want to experience.)</label>
+                    <label htmlFor="exampleFormControlTextarea1">Briefly explain your activity.</label>
                     <textarea className="form-control" id="exampleFormControlTextarea1" rows="3"
                         name="description"
                         placeholder='Description' 

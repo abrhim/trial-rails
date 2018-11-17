@@ -2,6 +2,7 @@ import React from 'react'
 //import './App.css';
 import Form from './Form';
 import Results from './Results';
+
 import PropTypes from "prop-types"
 
 
@@ -9,17 +10,17 @@ class App extends React.Component {
 
 
   state = {
-    fields:{}
+    showResults: false,
+    fields:{
+
+    }
   }
   
   getInitialState = () => {
-        return { showResults: false };
+        return { showResults: false,
+                 showProfile: false,
+        };
     }
-  /*componentWillMount=()=>{
-    this.setState({
-      index: this.props.index
-    })
-  }*/
 
   onChange = updatedValue => {
     console.log(this.state.index)
@@ -32,14 +33,18 @@ class App extends React.Component {
       }
     })
   }
-
+  
+  showProfile = resultsState => {
+    this.setState({showProfile: true,showResults:false})
+    this.setState({rState: resultsState })
+  }
+  
   render() {
     return (      
       <div className="App">
         <div id="formPage">
-        {this.state.showResults ? null : <Form class="form" onChange={fields => {this.onChange(fields)}} /> }
-        {this.state.showResults ? <Results class="results" query={this.state.fields}/> : null }
-
+        {this.state.showResults ? null : <Form class="form" onChange={fields => {this.onChange(fields)}} />}
+        {this.state.showResults ? <Results class="results" onShowProfile={resultsState => {this.showProfile(resultsState)}} query={this.state.fields}/> : null }
         </div>
       </div>
     );

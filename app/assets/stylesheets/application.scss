@@ -16,11 +16,12 @@
 
 
 .ropebridge-nav{
-  background-color: #ED953D;
+  background-color: #FFFFFF;
   nav{
     color: #FFF;
   }
 }
+
 .btn-outline-ropebridge{
     color: #FFFFFF;
     background-color: transparent;
@@ -31,17 +32,54 @@
 
 html {
   font-size: 14px;
-  
+  background-color: #F7B96C;
+  padding-top: 0px;
+
+  body{
+    background-color:#F7B96C;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    footer{
+      background-color:#FFF;
+    }
+  }
 }
 div.yield{
     width: 80%;
     margin: auto;
+    background-color: #FFF;
+    padding: 15px;
+    border-radius: 15px;
 
 }
 @media (min-width: 768px) {
   html {
     font-size: 16px;
   }
+}
+
+.nav-size{
+  font-size: 20px;
+}
+.card-contents > *{
+  
+  margin: 13px 0;
+}
+
+.text-blue{
+  color: #54C0C2;
+}
+
+.text-blue:hover{
+  color: #000;
+}
+
+.blue-hover{
+  color: #000;
+}
+
+.blue-hover:hover{
+  color: #54C0C2;
 }
 
 .container {
@@ -67,7 +105,7 @@ div.yield{
 
 .btn-red { 
   color: #FFFFFF; 
-  background-color: #F08B27; 
+  background-color: #54C0C2; 
   border-color: #FFFFFF; 
 } 
  
@@ -77,7 +115,7 @@ div.yield{
 .btn-red.active, 
 .open .dropdown-toggle.btn-red { 
   color: #FFFFFF; 
-  background-color: #F3AB64; 
+  background-color: #9AD5D6; 
   border-color: #FFFFFF; 
 } 
  
@@ -102,14 +140,19 @@ fieldset[disabled] .btn-red:active,
 .btn-red.disabled.active, 
 .btn-red[disabled].active, 
 fieldset[disabled] .btn-red.active { 
-  background-color: #F08B27; 
+  background-color: #54C0C2; 
   border-color: #FFFFFF; 
 } 
  
 .btn-red .badge { 
-  color: #F08B27; 
+  color: #54C0C2; 
   background-color: #FFFFFF; 
 }
+
+
+
+
+
 .btn-sign-up { 
   color: #FFFFFF; 
   background-color: #FF3A43; 
